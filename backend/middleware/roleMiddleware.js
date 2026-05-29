@@ -1,0 +1,25 @@
+ /*
+  ROLE AUTHORIZATION
+
+  This middleware checks whether
+  the user has required role.
+*/
+
+const authorizeRoles = (...roles) => {
+  return (req, res, next) => {
+    /*
+      Check User Role
+    */
+
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({
+        success: false,
+        message: "Access denied",
+      });
+    }
+
+    next();
+  };
+};
+
+module.exports = authorizeRoles;
