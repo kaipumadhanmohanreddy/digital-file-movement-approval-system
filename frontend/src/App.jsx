@@ -1,8 +1,35 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Login from "./pages/Login";
+
+import Register from "./pages/Register";
+
+import Dashboard from "./pages/Dashboard";
+
+import ProtectedRoute from "./routes/ProtectedRoute";
+
 function App() {
   return (
-    <div className="text-3xl font-bold text-center mt-10">
-      Digital File Movement System
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* Public Routes */}
+
+        <Route path="/" element={<Login />} />
+
+        <Route path="/register" element={<Register />} />
+
+        {/* Protected Routes */}
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

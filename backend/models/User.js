@@ -40,11 +40,16 @@ const userSchema = new mongoose.Schema(
       enum: ["employee", "admin", "officer"],
       default: "employee",
     },
+
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   {
     timestamps: true,
-  }
+  },
 );
 
 module.exports = mongoose.model("User", userSchema);

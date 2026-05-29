@@ -25,11 +25,15 @@ const validateRegister = (data) => {
     Password Validation
   */
 
-  if (!data.password) {
-    errors.password = "Password is required";
-  } else if (data.password.length < 6) {
-    errors.password = "Password must be at least 6 characters";
-  }
+  const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+if (!data.password) {
+  errors.password = "Password is required";
+} else if (!passwordRegex.test(data.password)) {
+  errors.password =
+    "Password must contain minimum 8 characters, one uppercase, one lowercase, one number and one special character";
+}
 
   /*
     Confirm Password Validation
