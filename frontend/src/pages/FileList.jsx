@@ -4,12 +4,14 @@ import API from "../api/axios";
 
 import toast from "react-hot-toast";
 
+import { Link } from "react-router-dom";
+
 const FileList = () => {
   const [files, setFiles] = useState([]);
 
   /*
-    Fetch Files
-  */
+      Fetch Files
+    */
 
   const fetchFiles = async () => {
     try {
@@ -27,19 +29,12 @@ const FileList = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">
-        File Requests
-      </h1>
+      <h1 className="text-3xl font-bold mb-6">File Requests</h1>
 
       <div className="grid gap-4">
         {files.map((file) => (
-          <div
-            key={file._id}
-            className="bg-white shadow rounded-lg p-5"
-          >
-            <h2 className="text-xl font-bold">
-              {file.title}
-            </h2>
+          <Link to={`/files/${file._id}`} key={file._id}>
+            <h2 className="text-xl font-bold">{file.title}</h2>
 
             <p>{file.description}</p>
 
@@ -56,7 +51,7 @@ const FileList = () => {
                 {file.status}
               </span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

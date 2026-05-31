@@ -5,6 +5,7 @@ const app = express();
 
 const authRoutes = require("./routes/authRoutes");
 const fileRoutes = require("./routes/fileRoutes");
+const approvalRoutes = require("./routes/approvalRoutes");
 
 /*
   Middleware
@@ -22,6 +23,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/files", fileRoutes);
+app.use("/api/approval", approvalRoutes);
 
 /*
   Test Route

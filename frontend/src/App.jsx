@@ -6,6 +6,8 @@ import Register from "./pages/Register";
 
 import Dashboard from "./pages/Dashboard";
 
+import FileDetails from "./pages/FileDetails";
+
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
@@ -25,6 +27,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/files/:id"
+          element={
+            <ProtectedRoute>
+              <FileDetails />
             </ProtectedRoute>
           }
         />

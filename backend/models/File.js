@@ -27,7 +27,7 @@ const approvalHistorySchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 /*
@@ -63,6 +63,15 @@ const fileSchema = new mongoose.Schema(
     department: {
       type: String,
       required: [true, "Department is required"],
+    },
+
+    /*
+    Assigned Department
+    */
+
+    assignedDepartment: {
+      type: String,
+      default: "",
     },
 
     /*
@@ -129,6 +138,15 @@ const fileSchema = new mongoose.Schema(
     },
 
     /*
+    Assigned Officer
+    */
+
+    assignedOfficer: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+
+    /*
       Approval History
     */
 
@@ -137,7 +155,7 @@ const fileSchema = new mongoose.Schema(
 
   {
     timestamps: true,
-  }
+  },
 );
 
 module.exports = mongoose.model("File", fileSchema);

@@ -64,3 +64,27 @@ PUT /api/files/:id
 ## Delete File
 
 DELETE /api/files/:id
+
+# Approval APIs
+
+## Approve File
+
+PUT /api/approval/approve/:id
+
+---
+
+## Reject File
+
+PUT /api/approval/reject/:id
+
+---
+
+## Return File
+
+PUT /api/approval/return/:id
+
+---
+
+## Assign Department
+
+PUT /api/approval/assign-department/:id
