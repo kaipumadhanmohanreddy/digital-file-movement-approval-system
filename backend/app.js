@@ -4,6 +4,7 @@ const cors = require("cors");
 const app = express();
 
 const authRoutes = require("./routes/authRoutes");
+const fileRoutes = require("./routes/fileRoutes");
 
 /*
   Middleware
@@ -20,6 +21,7 @@ app.use(express.json());
 */
 
 app.use("/api/auth", authRoutes);
+app.use("/api/files", fileRoutes);
 
 /*
   Test Route
