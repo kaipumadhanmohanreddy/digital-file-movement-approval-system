@@ -8,6 +8,8 @@ import API from "../api/axios";
 
 import InputField from "../components/InputField";
 
+import AuthLayout from "../layouts/AuthLayout";
+
 const Register = () => {
   /*
     Form State
@@ -78,30 +80,34 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md"
-      >
-        <h2 className="text-3xl font-bold mb-6 text-center">Register</h2>
+    <AuthLayout
+      title="Create Account"
+      subtitle="Register for government portal"
+    >
+      <form onSubmit={handleSubmit}>
+        {/* Name */}
 
         <InputField
-          label="Name"
+          label="Full Name"
           type="text"
           name="name"
           value={formData.name}
           onChange={handleChange}
-          placeholder="Enter Name"
+          placeholder="Enter full name"
         />
 
+        {/* Email */}
+
         <InputField
-          label="Email"
+          label="Email Address"
           type="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Enter Email"
+          placeholder="Enter email"
         />
+
+        {/* Password */}
 
         <InputField
           label="Password"
@@ -109,8 +115,10 @@ const Register = () => {
           name="password"
           value={formData.password}
           onChange={handleChange}
-          placeholder="Enter Password"
+          placeholder="Create password"
         />
+
+        {/* Confirm Password */}
 
         <InputField
           label="Confirm Password"
@@ -118,24 +126,48 @@ const Register = () => {
           name="confirmPassword"
           value={formData.confirmPassword}
           onChange={handleChange}
-          placeholder="Confirm Password"
+          placeholder="Confirm password"
         />
+
+        {/* Register Button */}
 
         <button
           type="submit"
-          className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700"
+          className="
+          w-full
+          bg-blue-600
+          hover:bg-blue-700
+          text-white
+          py-3
+          rounded-xl
+          font-semibold
+          transition-all
+          cursor-pointer
+          shadow-lg
+          mt-2
+        "
         >
-          Register
+          Create Account
         </button>
 
-        <p className="mt-4 text-center">
+        {/* Login Link */}
+
+        <p className="text-center text-slate-300 mt-6">
           Already have an account?
-          <Link to="/" className="text-blue-600 ml-1">
+          <Link
+            to="/"
+            className="
+            text-blue-300
+            hover:text-blue-400
+            ml-2
+            font-medium
+          "
+          >
             Login
           </Link>
         </p>
       </form>
-    </div>
+    </AuthLayout>
   );
 };
 

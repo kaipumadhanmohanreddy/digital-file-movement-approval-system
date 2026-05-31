@@ -73,3 +73,12 @@ Officer:
 Admin:
 - Full workflow control
 - Department assignment
+
+# Dashboard Features
+
+- Sidebar navigation
+- Charts & analytics
+- Search & filtering
+- Pagination
+- Responsive tables
+- Status tracking

@@ -8,6 +8,8 @@ import API from "../api/axios";
 
 import AuthContext from "../context/AuthContext";
 
+import AuthLayout from "../layouts/AuthLayout";
+
 import InputField from "../components/InputField";
 
 const Login = () => {
@@ -43,8 +45,8 @@ const Login = () => {
     e.preventDefault();
 
     if (!formData.email || !formData.password) {
-    return toast.error("All fields are required");
-  }
+      return toast.error("All fields are required");
+    }
 
     try {
       const res = await API.post("/auth/login", formData);
@@ -59,30 +61,25 @@ const Login = () => {
 
       navigate("/dashboard");
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || "Login Failed"
-      );
+      toast.error(error.response?.data?.message || "Login Failed");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md"
-      >
-        <h2 className="text-3xl font-bold mb-6 text-center">
-          Login
-        </h2>
+    <AuthLayout title="Welcome Back" subtitle="Login to continue">
+      <form onSubmit={handleSubmit}>
+        {/* Email */}
 
         <InputField
-          label="Email"
+          label="Email Address"
           type="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Enter Email"
+          placeholder="Enter your email"
         />
+
+        {/* Password */}
 
         <InputField
           label="Password"
@@ -90,28 +87,48 @@ const Login = () => {
           name="password"
           value={formData.password}
           onChange={handleChange}
-          placeholder="Enter Password"
+          placeholder="Enter password"
         />
+
+        {/* Login Button */}
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
+          className="
+          w-full
+          bg-blue-600
+          hover:bg-blue-700
+          text-white
+          py-3
+          rounded-xl
+          font-semibold
+          transition-all
+          cursor-pointer
+          shadow-lg
+          mt-2
+        "
         >
           Login
         </button>
 
-        <p className="mt-4 text-center">
-          Don't have an account?
+        {/* Register Link */}
 
+        <p className="text-center text-slate-300 mt-6">
+          Don't have an account?
           <Link
             to="/register"
-            className="text-blue-600 ml-1"
+            className="
+            text-blue-300
+            hover:text-blue-400
+            ml-2
+            font-medium
+          "
           >
             Register
           </Link>
         </p>
       </form>
-    </div>
+    </AuthLayout>
   );
 };
 

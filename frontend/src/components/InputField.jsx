@@ -7,10 +7,22 @@ const InputField = ({
   placeholder,
 }) => {
   return (
-    <div className="mb-4">
-      <label className="block mb-2 font-medium">
+    <div className="mb-5">
+      {/* Label */}
+
+      <label
+        className="
+          block
+          text-sm
+          font-medium
+          text-slate-200
+          mb-2
+        "
+      >
         {label}
       </label>
+
+      {/* Input */}
 
       <input
         type={type}
@@ -18,7 +30,21 @@ const InputField = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full border border-gray-300 rounded-lg p-3 outline-none focus:border-blue-500"
+        className="
+          w-full
+          px-4 py-3
+          rounded-xl
+          bg-white/10
+          border
+          border-white/20
+          text-white
+          placeholder-slate-300
+          outline-none
+          focus:border-blue-400
+          focus:ring-2
+          focus:ring-blue-500/30
+          transition-all
+        "
       />
     </div>
   );

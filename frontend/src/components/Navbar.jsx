@@ -1,65 +1,128 @@
-import { useContext } from "react";
+import { Menu } from "lucide-react";
 
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 
 import AuthContext from "../context/AuthContext";
 
-const Navbar = () => {
-  const { user, logout } = useContext(AuthContext);
-
-  const navigate = useNavigate();
-
-  /*
-    Logout Handler
-  */
-
-  const handleLogout = () => {
-    logout();
-
-    navigate("/");
-  };
+const Navbar = ({
+  sidebarOpen,
+  setSidebarOpen,
+}) => {
+  const { user, logout } =
+    useContext(AuthContext);
 
   return (
-    <nav className="bg-gradient-to-r from-blue-700 to-indigo-800 shadow-lg px-8 py-4 flex justify-between items-center">
-      {/* Logo */}
+    <header
+      className="
+        h-16
+        bg-white
+        border-b
+        shadow-sm
+        px-5
+        flex
+        items-center
+        justify-between
+        sticky
+        top-0
+        z-50
+      "
+    >
+      {/* Left */}
 
-      <div>
-        <h1 className="text-2xl font-bold text-white tracking-wide cursor-pointer">
-          Digital File System
-        </h1>
+      <div className="flex items-center gap-4">
+        {/* Toggle */}
+
+        <button
+          onClick={() =>
+            setSidebarOpen(
+              !sidebarOpen
+            )
+          }
+          className="
+            p-2
+            rounded-lg
+            hover:bg-slate-100
+            transition-all
+          "
+        >
+          <Menu size={22} />
+        </button>
+
+        {/* Logo */}
+
+        <div className="flex items-center gap-3">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+            alt="logo"
+            className="w-8 h-8"
+          />
+
+          <div>
+            <h1 className="text-sm font-bold text-slate-800">
+              Digital File Movement
+            </h1>
+
+            <p className="text-xs text-slate-500">
+              Government Portal
+            </p>
+          </div>
+        </div>
       </div>
 
-      {/* Right Section */}
+      {/* Right */}
 
-      <div className="flex items-center gap-5">
-        {/* Profile */}
+      <div className="flex items-center gap-4">
+        {/* User */}
 
-        <div className="text-white text-right">
-          <h2 className="font-semibold text-lg">
+        <div className="text-right hidden sm:block">
+          <h2 className="text-sm font-semibold text-slate-800">
             {user?.name}
           </h2>
 
-          <p className="text-sm text-gray-200 capitalize">
+          <p className="text-xs text-slate-500 capitalize">
             {user?.role}
           </p>
         </div>
 
         {/* Avatar */}
 
-        <div className="w-12 h-12 rounded-full bg-white text-blue-700 flex items-center justify-center font-bold text-xl shadow-md cursor-pointer">
-          {user?.name?.charAt(0).toUpperCase()}
+        <div
+          className="
+            w-9 h-9
+            rounded-full
+            bg-blue-600
+            text-white
+            flex
+            items-center
+            justify-center
+            font-bold
+            text-sm
+          "
+        >
+          {user?.name
+            ?.charAt(0)
+            .toUpperCase()}
         </div>
 
-        {/* Logout Button */}
+        {/* Logout */}
 
         <button
-          onClick={handleLogout}
-          className="bg-red-500 hover:bg-red-600 transition-all duration-300 text-white px-5 py-2 rounded-lg shadow cursor-pointer"
+          onClick={logout}
+          className="
+            bg-red-500
+            hover:bg-red-600
+            text-white
+            px-4 py-2
+            rounded-lg
+            text-sm
+            transition-all
+            cursor-pointer
+          "
         >
           Logout
         </button>
       </div>
-    </nav>
+    </header>
   );
 };
 

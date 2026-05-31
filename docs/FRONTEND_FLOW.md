@@ -26,3 +26,17 @@ ProtectedRoute checks user state
         ↓
 If authenticated → access granted
 If not authenticated → redirect to login
+
+# Dashboard Flow
+
+Dashboard loads
+      ↓
+Fetch files from API
+      ↓
+Generate statistics
+      ↓
+Render charts
+      ↓
+Apply search/filter
+      ↓
+Render paginated table

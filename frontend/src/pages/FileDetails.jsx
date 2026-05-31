@@ -1,10 +1,12 @@
 import { useEffect, useState, useContext } from "react";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import API from "../api/axios";
 
 import AuthContext from "../context/AuthContext";
+
+import DashboardLayout from "../layouts/DashboardLayout";
 
 import ApprovalTimeline from "../components/ApprovalTimeline";
 
@@ -16,6 +18,8 @@ const FileDetails = () => {
   const { user } = useContext(AuthContext);
 
   const [file, setFile] = useState(null);
+
+  const navigate = useNavigate();
 
   /*
     Fetch File Details
@@ -40,27 +44,49 @@ const FileDetails = () => {
   }
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold">{file.title}</h1>
+    <DashboardLayout>
+      <div className="p-6">
+        <div className="flex items-center gap-4 mb-6">
+          <button
+            onClick={() => navigate(-1)}
+            className="
+                bg-slate-800
+                hover:bg-slate-900
+                text-white
+                px-4 py-2
+                rounded-lg
+                text-sm
+                cursor-pointer
+                transition-all
+            "
+          >
+            ← Back
+          </button>
+          <h1 className="text-2xl font-bold text-slate-900">File Details</h1>
+        </div>
+        <h1 className="text-3xl font-bold">{file.title}</h1>
 
-      <p className="mt-4">{file.description}</p>
+        <p className="mt-4">{file.description}</p>
 
-      <div className="mt-4 flex gap-3">
-        <span className="bg-blue-100 px-3 py-1 rounded">{file.department}</span>
+        <div className="mt-4 flex gap-3">
+          <span className="bg-blue-100 px-3 py-1 rounded">
+            {file.department}
+          </span>
 
-        <span className="bg-green-100 px-3 py-1 rounded">{file.status}</span>
+          <span className="bg-green-100 px-3 py-1 rounded">{file.status}</span>
+        </div>
+
+        {/* Approval Controls */}
+
+        {(user?.role === "admin" || user?.role === "officer") && (
+          <ApprovalControls fileId={file._id} refresh={fetchFile} />
+        )}
+
+        {/* Timeline */}
+
+        <ApprovalTimeline history={file.approvalHistory} />
       </div>
-
-      {/* Approval Controls */}
-
-      {(user?.role === "admin" || user?.role === "officer") && (
-        <ApprovalControls fileId={file._id} refresh={fetchFile} />
-      )}
-
-      {/* Timeline */}
-
-      <ApprovalTimeline history={file.approvalHistory} />
-    </div>
+    </DashboardLayout>
   );
 };
 
