@@ -1,31 +1,32 @@
-import { Menu } from "lucide-react";
+import { Menu, Moon, Sun } from "lucide-react";
 
 import { useContext } from "react";
 
 import AuthContext from "../context/AuthContext";
 
-const Navbar = ({
-  sidebarOpen,
-  setSidebarOpen,
-}) => {
-  const { user, logout } =
-    useContext(AuthContext);
+import ThemeContext from "../context/ThemeContext";
 
+const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
+  const { user, logout } = useContext(AuthContext);
+  const { darkMode, toggleTheme } = useContext(ThemeContext);
   return (
     <header
       className="
-        h-16
-        bg-white
-        border-b
-        shadow-sm
-        px-5
-        flex
-        items-center
-        justify-between
-        sticky
-        top-0
-        z-50
-      "
+      h-16
+      bg-white
+      dark:bg-slate-800
+      border-b
+      border-slate-200
+      dark:border-slate-700
+      shadow-sm
+      px-5
+      flex
+      items-center
+      justify-between
+      sticky
+      top-0
+      z-50
+    "
     >
       {/* Left */}
 
@@ -33,11 +34,7 @@ const Navbar = ({
         {/* Toggle */}
 
         <button
-          onClick={() =>
-            setSidebarOpen(
-              !sidebarOpen
-            )
-          }
+          onClick={() => setSidebarOpen(!sidebarOpen)}
           className="
             p-2
             rounded-lg
@@ -58,13 +55,11 @@ const Navbar = ({
           />
 
           <div>
-            <h1 className="text-sm font-bold text-slate-800">
+            <h1 className="text-sm font-bold text-slate-800 dark:text-white">
               Digital File Movement
             </h1>
 
-            <p className="text-xs text-slate-500">
-              Government Portal
-            </p>
+            <p className="text-xs text-slate-500">Government Portal</p>
           </div>
         </div>
       </div>
@@ -75,13 +70,11 @@ const Navbar = ({
         {/* User */}
 
         <div className="text-right hidden sm:block">
-          <h2 className="text-sm font-semibold text-slate-800">
+          <h2 className="text-sm font-semibold text-slate-800 dark:text-white">
             {user?.name}
           </h2>
 
-          <p className="text-xs text-slate-500 capitalize">
-            {user?.role}
-          </p>
+          <p className="text-xs text-slate-500 capitalize">{user?.role}</p>
         </div>
 
         {/* Avatar */}
@@ -99,10 +92,22 @@ const Navbar = ({
             text-sm
           "
         >
-          {user?.name
-            ?.charAt(0)
-            .toUpperCase()}
+          {user?.name?.charAt(0).toUpperCase()}
         </div>
+
+        <button
+          onClick={toggleTheme}
+          className="
+            p-2
+            rounded-lg
+            hover:bg-slate-100
+            dark:hover:bg-slate-700
+            transition-all
+            cursor-pointer
+          "
+        >
+          {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
 
         {/* Logout */}
 

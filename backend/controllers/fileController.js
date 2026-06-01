@@ -30,6 +30,8 @@ const createFile = async (req, res) => {
 
       createdBy: req.user.id,
 
+      attachment: req.file?.filename || "",
+
       /*
         Initial Approval History
       */
@@ -98,10 +100,7 @@ const getSingleFile = async (req, res) => {
   try {
     const file = await File.findById(req.params.id)
       .populate("createdBy", "name email role")
-      .populate(
-        "approvalHistory.actionBy",
-        "name role"
-      );
+      .populate("approvalHistory.actionBy", "name role");
 
     /*
       Check File Exists
@@ -170,13 +169,9 @@ const updateFile = async (req, res) => {
       });
     }
 
-    file = await File.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      {
-        new: true,
-      }
-    );
+    file = await File.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
 
     res.status(200).json({
       success: true,

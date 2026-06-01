@@ -1,5 +1,5 @@
 const express = require("express");
-
+const upload = require("../utils/upload");
 const router = express.Router();
 
 const {
@@ -17,6 +17,8 @@ const protect = require("../middleware/authMiddleware");
 */
 
 router.post("/", protect, createFile);
+
+router.post("/", protect, upload.single("attachment"), createFile);
 
 router.get("/", protect, getAllFiles);
 

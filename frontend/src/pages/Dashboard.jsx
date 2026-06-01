@@ -113,13 +113,24 @@ const Dashboard = () => {
   const totalPages = Math.ceil(filteredFiles.length / filesPerPage);
 
   return (
-    <DashboardLayout>
+    <DashboardLayout
+      className="
+      min-h-screen
+      bg-slate-100
+      dark:bg-slate-900
+      text-slate-900
+      dark:text-white
+      p-5
+    "
+    >
       {/* Dashboard Heading */}
 
       <div className="mb-5">
-        <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+          Dashboard
+        </h1>
 
-        <p className="text-slate-700 text-sm mt-1">
+        <p className="text-slate-700 dark:text-slate-300 text-sm mt-1">
           Government File Movement & Approval System
         </p>
       </div>

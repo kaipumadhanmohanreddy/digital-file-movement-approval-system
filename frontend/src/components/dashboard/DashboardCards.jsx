@@ -29,11 +29,12 @@ const DashboardCards = ({ stats }) => {
         <Card
           key={index}
           className="
-          p-4
+          p-3
           bg-white
+          dark:bg-slate-800
           border
-          border-slate-300
-          shadow-sm
+          border-slate-200
+          dark:border-slate-700
         "
         >
           {/* Title */}
@@ -43,6 +44,7 @@ const DashboardCards = ({ stats }) => {
             text-sm
             font-semibold
             text-slate-700
+            dark:text-slate-300
           "
           >
             {card.title}
@@ -52,10 +54,11 @@ const DashboardCards = ({ stats }) => {
 
           <h1
             className="
-            text-3xl
+            text-xl
             font-bold
+            mt-2
             text-slate-900
-            mt-3
+            dark:text-white
           "
           >
             {card.value}

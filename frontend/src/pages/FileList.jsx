@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 import { Link } from "react-router-dom";
 
-const FileList = () => {
+const FileList = ({ filter }) => {
   const [files, setFiles] = useState([]);
 
   /*
@@ -23,6 +23,10 @@ const FileList = () => {
     }
   };
 
+  const filteredFiles = filter
+    ? files.filter((file) => file.status === "Under Review")
+    : files;
+
   useEffect(() => {
     fetchFiles();
   }, []);
@@ -32,7 +36,7 @@ const FileList = () => {
       <h1 className="text-3xl font-bold mb-6">File Requests</h1>
 
       <div className="grid gap-4">
-        {files.map((file) => (
+        {filteredFiles.map((file) => (
           <Link to={`/files/${file._id}`} key={file._id}>
             <h2 className="text-xl font-bold">{file.title}</h2>
 

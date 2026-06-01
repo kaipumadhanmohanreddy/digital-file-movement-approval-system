@@ -8,6 +8,16 @@ import Dashboard from "./pages/Dashboard";
 
 import FileDetails from "./pages/FileDetails";
 
+import AdminPanel from "./pages/AdminPanel";
+
+import FileList from "./pages/FileList";
+
+import MyFiles from "./pages/MyFiles";
+
+import PendingFiles from "./pages/PendingFiles";
+
+import Analytics from "./pages/Analytics";
+
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
@@ -27,6 +37,51 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminPanel />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/files"
+          element={
+            <ProtectedRoute>
+              <FileList />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/my-files"
+          element={
+            <ProtectedRoute>
+              <MyFiles />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/pending-files"
+          element={
+            <ProtectedRoute>
+              <PendingFiles />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/analytics"
+          element={
+            <ProtectedRoute>
+              <Analytics />
             </ProtectedRoute>
           }
         />

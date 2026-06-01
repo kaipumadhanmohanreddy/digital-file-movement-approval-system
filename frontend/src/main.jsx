@@ -8,14 +8,18 @@ import App from "./App";
 
 import "./index.css";
 
+import { ThemeProvider } from "./context/ThemeContext";
+
 import { AuthProvider } from "./context/AuthContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <Toaster position="top-right" />
+      <Toaster position="top-right" reverseOrder={false} />
 
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </AuthProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
