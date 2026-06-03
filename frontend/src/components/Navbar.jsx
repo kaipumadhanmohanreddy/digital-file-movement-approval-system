@@ -6,6 +6,8 @@ import AuthContext from "../context/AuthContext";
 
 import ThemeContext from "../context/ThemeContext";
 
+import NotificationBell from "./NotificationBell";
+
 const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
   const { user, logout } = useContext(AuthContext);
   const { darkMode, toggleTheme } = useContext(ThemeContext);
@@ -67,6 +69,9 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
       {/* Right */}
 
       <div className="flex items-center gap-4">
+        {/* Notifications */}
+        <NotificationBell />
+
         {/* User */}
 
         <div className="text-right hidden sm:block">

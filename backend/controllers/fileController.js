@@ -1,6 +1,9 @@
 const File = require("../models/File");
 
 const validateFileRequest = require("../validations/fileValidation");
+const Notification = require("../models/Notification");
+
+const ActivityLog = require("../models/ActivityLog");
 
 /*
   CREATE FILE REQUEST

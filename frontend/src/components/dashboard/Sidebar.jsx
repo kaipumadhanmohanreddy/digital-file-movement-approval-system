@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+
+import AuthContext from "../../context/AuthContext";
 
 const Sidebar = ({ sidebarOpen }) => {
+  const { user } = useContext(AuthContext);
   const menuItems = [
     {
       name: "Dashboard",
@@ -28,6 +32,14 @@ const Sidebar = ({ sidebarOpen }) => {
     },
   ];
 
+  const filteredItems = menuItems.filter((item) => {
+    if (item.name === "Admin") {
+      return user?.role === "admin";
+    }
+
+    return true;
+  });
+
   return (
     <aside
       className={`
@@ -47,7 +59,7 @@ const Sidebar = ({ sidebarOpen }) => {
       {/* Navigation */}
 
       <nav className="mt-5 px-3 flex flex-col gap-2">
-        {menuItems.map((item, index) => (
+        {filteredItems.map((item, index) => (
           <Link
             key={index}
             to={item.path}

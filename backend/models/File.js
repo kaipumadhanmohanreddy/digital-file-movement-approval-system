@@ -151,6 +151,30 @@ const fileSchema = new mongoose.Schema(
     */
 
     approvalHistory: [approvalHistorySchema],
+
+    currentDepartment: {
+      type: String,
+
+      default: "General",
+    },
+
+    movementHistory: [
+      {
+        department: String,
+
+        movedBy: {
+          type: mongoose.Schema.Types.ObjectId,
+
+          ref: "User",
+        },
+
+        movedAt: {
+          type: Date,
+
+          default: Date.now,
+        },
+      },
+    ],
   },
 
   {

@@ -1,5 +1,9 @@
 const File = require("../models/File");
 
+const Notification = require("../models/Notification");
+
+const ActivityLog = require("../models/ActivityLog");
+
 /*
   APPROVE FILE
 */
@@ -41,6 +45,30 @@ const approveFile = async (req, res) => {
     });
 
     await file.save();
+
+    await Notification.create({
+      user: file.createdBy,
+
+      message: `Your file "${file.title}" was ${status}`,
+
+      type: status === "Approved" ? "approval" : "rejection",
+    });
+
+    /*
+  Create Activity Log
+*/
+
+    await ActivityLog.create({
+      file: file._id,
+
+      actionBy: req.user.id,
+
+      action: status,
+
+      remarks,
+
+      department: file.currentDepartment,
+    });
 
     res.status(200).json({
       success: true,

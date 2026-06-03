@@ -6,7 +6,8 @@ const app = express();
 const authRoutes = require("./routes/authRoutes");
 const fileRoutes = require("./routes/fileRoutes");
 const approvalRoutes = require("./routes/approvalRoutes");
-const userRoutes = require( "./routes/userRoutes");
+const userRoutes = require("./routes/userRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
 
 /*
   Middleware
@@ -26,6 +27,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/files", fileRoutes);
 app.use("/api/approval", approvalRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 /*
   Test Route
