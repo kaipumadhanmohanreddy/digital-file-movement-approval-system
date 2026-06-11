@@ -1,20 +1,29 @@
 const mongoose = require("mongoose");
 
+const dotenv = require("dotenv");
+
+/*
+  Load Environment Variables
+*/
+
+dotenv.config();
+
 /*
   Database Connection Function
-  This function connects our backend to MongoDB
 */
 
 const connectDB = async () => {
   try {
-    // Connecting MongoDB using Mongoose
+    /*
+      Connect MongoDB
+    */
+
     const conn = await mongoose.connect(process.env.MONGO_URI);
 
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.log("MongoDB Connection Failed");
+    console.log("MongoDB Connection Failed:", error.message);
 
-    // Exit process if DB connection fails
     process.exit(1);
   }
 };

@@ -1,11 +1,10 @@
-import {
-  Bell,
-} from "lucide-react";
+import { Bell } from "lucide-react";
 
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
+
+import socket from "../socket";
+
+import toast from "react-hot-toast";
 
 import API from "../api/axios";
 
@@ -14,56 +13,70 @@ const NotificationBell = () => {
     State
   */
 
-  const [
-    notifications,
-    setNotifications,
-  ] = useState([]);
+  const [notifications, setNotifications] = useState([]);
 
-  const [open, setOpen] =
-    useState(false);
+  const [open, setOpen] = useState(false);
 
   /*
     Fetch Notifications
   */
 
   useEffect(() => {
-    const fetchNotifications =
-      async () => {
-        try {
-          const res =
-            await API.get(
-              "/notifications"
-            );
+    const fetchNotifications = async () => {
+      try {
+        const res = await API.get("/notifications");
 
-          setNotifications(
-            res.data
-              .notifications
-          );
-        } catch (error) {
-          console.log(error);
-        }
-      };
+        setNotifications(res.data.notifications);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
     fetchNotifications();
+  }, []);
+
+  useEffect(() => {
+    socket.on("fileUpdated", (data) => {
+      /*
+        Show Toast
+      */
+
+      toast.success(data.message);
+
+      /*
+        Add Notification
+      */
+
+      setNotifications((prev) => [
+        {
+          _id: Date.now(),
+
+          message: data.message,
+
+          isRead: false,
+        },
+
+        ...prev,
+      ]);
+    });
+
+    return () => {
+      socket.off("fileUpdated");
+    };
   }, []);
 
   /*
     Unread Count
   */
 
-  const unread =
-    notifications.filter(
-      (n) => !n.isRead
-    ).length;
+  const unread = notifications.filter((n) => !n.isRead).length;
 
   return (
     <div className="relative">
       {/* Bell */}
 
       <button
-        onClick={() =>
-          setOpen(!open)
-        }
+        onClick={() => setOpen(!open)}
         className="
           relative
           p-2
@@ -117,38 +130,27 @@ const NotificationBell = () => {
           "
         >
           <div className="p-4 border-b dark:border-slate-700">
-            <h2 className="font-semibold dark:text-white">
-              Notifications
-            </h2>
+            <h2 className="font-semibold dark:text-white">Notifications</h2>
           </div>
 
           <div className="max-h-80 overflow-y-auto">
-            {notifications.length >
-            0 ? (
-              notifications.map(
-                (
-                  notification
-                ) => (
-                  <div
-                    key={
-                      notification._id
-                    }
-                    className="
+            {notifications.length > 0 ? (
+              notifications.map((notification) => (
+                <div
+                  key={notification._id}
+                  className="
                       p-4
                       border-b
                       dark:border-slate-700
                       hover:bg-slate-50
                       dark:hover:bg-slate-700
                     "
-                  >
-                    <p className="text-sm dark:text-white">
-                      {
-                        notification.message
-                      }
-                    </p>
-                  </div>
-                )
-              )
+                >
+                  <p className="text-sm dark:text-white">
+                    {notification.message}
+                  </p>
+                </div>
+              ))
             ) : (
               <div className="p-4 text-center text-slate-500">
                 No notifications

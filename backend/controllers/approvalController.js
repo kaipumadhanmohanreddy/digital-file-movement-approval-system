@@ -4,6 +4,8 @@ const Notification = require("../models/Notification");
 
 const ActivityLog = require("../models/ActivityLog");
 
+const sendEmail = require("../utils/sendEmail");
+
 /*
   APPROVE FILE
 */
@@ -46,12 +48,32 @@ const approveFile = async (req, res) => {
 
     await file.save();
 
+    const io = req.app.get("io");
+
+    /*
+  Emit Real-Time Event
+*/
+
+    io.emit("fileUpdated", {
+      message: `File "${file.title}" updated to ${status}`,
+
+      file,
+    });
+
     await Notification.create({
       user: file.createdBy,
 
       message: `Your file "${file.title}" was ${status}`,
 
       type: status === "Approved" ? "approval" : "rejection",
+    });
+
+    await sendEmail({
+      to: file.createdBy.email,
+
+      subject: "File Status Updated",
+
+      text: `Your file "${file.title}" has been ${status}`,
     });
 
     /*
